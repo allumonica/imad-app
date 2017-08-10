@@ -5,12 +5,6 @@ var path = require('path');
 var app = express();
 app.use(morgan('combined'));
 
-var ctr=0;
-app.get('/counter,function (req,res'); {
-    ctr-ctr+1;
-    res.send(ctr.tostring());
-});
-    
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
