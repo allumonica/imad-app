@@ -38,8 +38,8 @@ function CreateTemplate (data) {
              <link href="/ui/style.css" rel="stylesheet" />
         </head> 
         <body>
-             <div class="container">
-              <div>
+            <div class="container">
+                 <div>
                  <a href="/">Home</a>
              </div>
              <hr/>
