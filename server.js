@@ -87,7 +87,7 @@ var counter = 0;
     
 });
 var names = [];
-app.get('/submit-name' , function(req, res) { // URL: /submit-name?name=xxxx
+app.get('/submit-name' , function(req, res) { // URL: /submit-name?name=ranju
     //Get the name from the request
     var name = req.query.name;
     
