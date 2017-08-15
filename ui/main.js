@@ -26,8 +26,6 @@ button.onclick = function () {
 };
 
 //submit name
-var nameInput = document.getElementById('name');
-var name = nameInput.value;
 var submit = document.getElementById('submit_btn');
 submit.onclick = function() {
     
@@ -57,6 +55,8 @@ ul.innerHTML = list;
       //Not done yet
   };
   //Make the request
+  var nameInput = document.getElementById('name');
+  var name = nameInput.value;
   request.open('GET' , 'http://allumonica2012.imad.hasura-app.io/submit-name?name=' + name, true);
   request.send(null);
 };
