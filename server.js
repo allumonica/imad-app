@@ -1,7 +1,7 @@
 var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
-var pool = require('pg').pool;
+var pool = require('pg').Pool;
 
 var config = {
     user: 'allumonica2012',
@@ -89,7 +89,7 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-var pool = new pool(config);
+var pool = new Pool(config);
 app.get('/test-db', function (req, res) {
     //make a select request
     //return a response with the results
@@ -124,7 +124,7 @@ app.get('/articles/:articleName',function (req, res) {
     //article[articleName] = {} content object for article one
     var articleName = req.params.articleName;
     
-    //SELECT * FROM article WHERE title = article-one
+    //SELECT * FROM article WHERE title = article -one'
   pool.query("SELECT * FROM article WHERE title =" + req.params.artcileName, function (err , result) {
       if(err) {
           res.status(500).send(err.toString());
