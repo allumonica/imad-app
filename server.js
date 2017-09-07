@@ -205,13 +205,10 @@ app.get('/submit-name' , function(req, res) { // /submit-name?name=xxxx
 });
 
 
-app.get('/articles/:articleName',function (req, res) {
-    //articleName == article-one
-    //article[articleName] == {} content object for article one
-    
-    //SELECT * FROM article WHERE title = 'article-one'
-  pool.query("SELECT * FROM article WHERE title = '" + req.params.artcileName + "'", function (err , result) {
-      if(err) {
+app.get('/articles/:articleName', function (req, res) {
+    //SELECT * FROM article WHERE title = '\'; DELETE WHERE a= \'asdf'
+  pool.query("SELECT * FROM article WHERE title = $1", [req.params.artcileName], function (err , result) {
+      if (err) {
           res.status(500).send(err.toString());
       } else {
           if (result.rows.length === 0) {
