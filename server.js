@@ -4,6 +4,7 @@ var path = require('path');
 var Pool = require('pg').Pool;
 var crypto = require('crypto');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
 
 var config = {
@@ -17,7 +18,10 @@ var config = {
 var app = express();
 app.use(morgan('combined'));
 app.use(bodyParser.json());
-
+app.use(session({
+    secret: 'someRandomSecretValue',
+    cookies: {maxAge: 1000 * 60 * 60 * 24 * 30 }
+}));
 var articles = {
     'article-one': {
      title: 'Article one | Monica Swarna Ranjana',
@@ -140,9 +144,13 @@ pool.query('SELECT * FROM "user" WHERE username=$1', [username], function(err, r
                 var salt = dbString.split('$')[2];
                 var hashedPassword = hash(password, salt); //Creating a hash based on the password submitted and the original salt
                 if(hashedPassword === dbString) {
-                   res.send('credentials correct'); 
-                   
-                   //Set a session
+                 
+                   //Set the session
+                   req.session.outh = {userId: result.rows[0].id};
+                   //set cookie with a session id
+                  //internally, on the server side it maps the session id to an object
+                  //{ outh: {userId }}
+                   res.send('creredentials correct'); 
                    
                    
                 } else {
@@ -151,6 +159,14 @@ pool.query('SELECT * FROM "user" WHERE username=$1', [username], function(err, r
             }
         } 
 });
+});
+
+app.get('/check-login', function (req, res) {
+  if (req.session && req.session.outh && req.session.outh.userId) {
+     res.send('You are logged in: ' + req.session.outh.userId.toString());
+  } else {
+      res.send('You are not logged in');
+  }
 });
 
 
