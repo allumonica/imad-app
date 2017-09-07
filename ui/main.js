@@ -12,7 +12,7 @@ submit.onclick = function() {
          //Take some action
        if (request.status === 200) {
         //Capture a list of names and render it as a list
-               console.log('user logged in');
+               Console.log('user logged in');
                alert('Logged in successfully');
          } else if (request.status === 403) {
              alert('username/password is incorrect');
@@ -26,8 +26,8 @@ submit.onclick = function() {
   //Make the request
  var username = document.getElementById('username').value;
  var password = document.getElementById('password').value;
- console.log(username);
- console.log(password);
+ Console.log(username);
+ Console.log(password);
  request.open('POST' , 'http://allumonica2012.imad.hasura-app.io/login', true);
  request.setRequestHeader('Content.Type','application/json');
  request.send(JSON.stringify({username: username,password: password}));
