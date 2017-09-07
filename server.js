@@ -136,7 +136,7 @@ pool.query('SELECT * FROM "user" WHERE username=$1', [username], function(err, r
           if (err) {
          res.status(500).send(err.toString());
         } else {
-            if (result.rows.lenght===0) {
+            if (result.rows.lenght ===0) {
                 res.send(403).send('username/password is invalid');
             } else {
                 //Match the password
@@ -146,10 +146,10 @@ pool.query('SELECT * FROM "user" WHERE username=$1', [username], function(err, r
                 if(hashedPassword === dbString) {
                  
                    //Set the session
-                   req.session.outh = {userId: result.rows[0].id};
+                   req.session.auth = {userId: result.rows[0].id};
                    //set cookie with a session id
                   //internally, on the server side it maps the session id to an object
-                  //{ outh: {userId }}
+                  //{ auth: {userId }}
                    res.send('creredentials correct'); 
                    
                    
@@ -162,8 +162,8 @@ pool.query('SELECT * FROM "user" WHERE username=$1', [username], function(err, r
 });
 
 app.get('/check-login', function (req, res) {
-  if (req.session && req.session.outh && req.session.outh.userId) {
-     res.send('You are logged in: ' + req.session.outh.userId.toString());
+  if (req.session && req.session.auth && req.session.auth.userId) {
+     res.send('You are logged in: ' + req.session.auth.userId.toString());
   } else {
       res.send('You are not logged in');
   }
